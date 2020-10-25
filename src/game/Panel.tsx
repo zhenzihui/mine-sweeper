@@ -1,27 +1,25 @@
 import React, {Component} from "react";
-import {IPanelState} from "../common/Interfaces";
+import {CellStatus, IPanelState, MineCell} from "../common/Interfaces";
 import {Paper, Table, TableCell, TableContainer, TableRow} from "@material-ui/core";
 import _ from 'lodash';
 class Panel extends Component<any, IPanelState>{
 
     render() {
 
-
-
-        let dataMatrix: number[][] = _.range(0, this.props.rows)
-            .map((i: number) => { return _.range(0, this.props.cols).map((n: number) => Math.round(Math.random() * 1000)%2)})
+        let dataMatrix: MineCell[][] = _.range(0, this.props.rows)
+            .map((i: number) => { return _.range(0, this.props.cols).map((n: number) => new MineCell(CellStatus.Default, 0, false, i, n))})
 
         return (
             <div>
                 <Table>
                     <TableContainer component={Paper}>
                     {
-                        dataMatrix.map((cols: number[]) => (
+                        dataMatrix.map((cols: MineCell[]) => (
                             <TableRow>
                                 {
-                                    cols.map((item: number) => (
+                                    cols.map((item: MineCell) => (
                                         <TableCell>
-                                            {item}
+                                            {item.pX},{item.pY}
                                         </TableCell>
                                     ))
                                 }
