@@ -1,21 +1,18 @@
 export interface IPanelProps {
-    rows: number;
-    cols: number;
+    mineData: MineCell[][];
+    onOpen: Function;
+    onMark: Function;
 }
 export interface IPanelState {
     mineData: MineCell[][];
 }
-export interface IPanelFormState {
-    cols: number; rows: number;
-    panelForm: { editedCols: number; editedRows: number }
-}
 
-//用于修改棋盘的form
-export interface IPanelForm {
-    editedRows: number;
-    editedCols: number;
+export interface ICellProps {
+    onOpen: any;
+    onMark: any;
+    value: String;
+    status: number;
 }
-
 
 //一个格子
 export class MineCell {
@@ -35,20 +32,19 @@ export class MineCell {
     }
 }
 
-export interface MineActionData {
-    type: number;
-    data: MineCell[][];
-}
-
 
 export enum CellStatus {
     Default = 100,
     Open ,
     Marked ,
+    Disabled
 }
 
 export enum Actions {
-    Gen = 1000
+    Gen = 1000,
+    Open,
+    Mark,
+    Update
 }
 
 

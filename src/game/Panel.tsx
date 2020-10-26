@@ -1,36 +1,35 @@
-import React, {Component} from "react";
-import {CellStatus, IPanelState, MineCell} from "../common/Interfaces";
+import React from "react";
+import {IPanelProps, MineCell} from "../common/Interfaces";
 import {Paper, Table, TableCell, TableContainer, TableRow} from "@material-ui/core";
-import _ from 'lodash';
-class Panel extends Component<any, IPanelState>{
+import {Cell} from "./Cell";
 
-    render() {
+const Panel = (props: IPanelProps) => {
+    const { mineData, onOpen, onMark } = props
+    let data: MineCell[][] = Array.from(mineData)
 
-        let dataMatrix: MineCell[][] = _.range(0, this.props.rows)
-            .map((i: number) => { return _.range(0, this.props.cols).map((n: number) => new MineCell(CellStatus.Default, 0, false, i, n))})
-
-        return (
-            <div>
-                <Table>
-                    <TableContainer component={Paper}>
+    return (
+        <div>
+            <Table>
+                <TableContainer component={Paper}>
                     {
-                        dataMatrix.map((cols: MineCell[]) => (
+                        data.map((rows: MineCell[]) => (
                             <TableRow>
                                 {
-                                    cols.map((item: MineCell) => (
+                                    rows.map((col: MineCell) => (
                                         <TableCell>
-                                            {item.pX},{item.pY}
+                                        <Cell onOpen={() => onOpen(col.pX, col.pY)} onMark={() => onMark(col.pX, col.pY)}
+                                              value={col.hasMine? "B": col.mineCount.toString()} status={col.status} />
                                         </TableCell>
                                     ))
                                 }
+
                             </TableRow>
                         ))
                     }
-                    </TableContainer>
-                </Table>
-            </div>
-        )
-    }
-
+                </TableContainer>
+            </Table>
+        </div>
+    )
 }
+
 export default Panel

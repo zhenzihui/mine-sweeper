@@ -2,8 +2,6 @@ import React, {ComponentType} from 'react'
 import {connect} from 'react-redux'
 import {Button, FormControl, FormLabel, Input} from "@material-ui/core";
 import {genMineData} from "../actions/MineAction";
-import {CellStatus, MineCell} from "../common/Interfaces";
-import _ from "lodash";
 // import {Dispatch} from 'redux'
 
 // @ts-ignore
@@ -13,14 +11,9 @@ let GenMineForm = ({dispatch}) => {
 
 
     const onClick = () => {
-        if(Number.isNaN(inputRows.value) || Number.isNaN(inputCols.value))
-            return
-
-        let dataMatrix: MineCell[][] = _.range(0, +inputRows.value)
-            .map((i: number) => { return _.range(0, +inputCols.value)
-                .map((n: number) => new MineCell(CellStatus.Default, 0, false, i, n))})
-        dispatch(genMineData(dataMatrix))
-
+        if(!Number.isNaN(inputRows.value) && !Number.isNaN(inputCols.value)) {
+            dispatch(genMineData(inputRows.value, inputCols.value, 5))
+        }
     }
 
 

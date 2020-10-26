@@ -1,8 +1,24 @@
-import {Actions, MineCell} from "../common/Interfaces";
+import {Actions, CellStatus} from "../common/Interfaces";
 
-export const genMineData = (mines: MineCell[][]) =>  {
+export const genMineData = (x: number, y: number, count: number) =>  {
     return {
         type: Actions.Gen,
-        data: mines
+        position: [x,y,count]
+    }
+}
+
+export const openCell = (x: number, y: number) => {
+    return {
+        type: Actions.Update,
+        position: [x,y],
+        status: CellStatus.Open
+    }
+}
+
+export const markCell = (x: number, y: number) => {
+    return {
+        type: Actions.Update,
+        position: [x,y],
+        status: CellStatus.Marked
     }
 }
