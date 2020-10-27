@@ -9,9 +9,8 @@ export const genMineData = (x: number, y: number, count: number) =>  {
 
 export const openCell = (x: number, y: number) => {
     return {
-        type: Actions.Update,
+        type: Actions.Open,
         position: [x,y],
-        status: CellStatus.Open
     }
 }
 
